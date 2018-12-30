@@ -3,8 +3,8 @@ import unittest
 
 class TestGame(unittest.TestCase):
 
-    def test_nothing(self):
-        pass
+     def test_can_create_game(self):
+         g = Game()
 
 
 if __name__ == '__main__':

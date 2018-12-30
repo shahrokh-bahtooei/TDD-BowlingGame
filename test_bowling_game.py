@@ -15,6 +15,11 @@ class TestGame(unittest.TestCase):
             self.g.roll(0)
         self.assertEqual(self.g.score(), 0)
 
+    def test_all_ones(self):
+        for _ in range(20):
+            self.g.roll(1)
+        self.assertEqual(self.g.score(), 20)
+
 
 if __name__ == '__main__':
     unittest.main()

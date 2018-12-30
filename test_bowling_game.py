@@ -11,9 +11,9 @@ class TestGame(unittest.TestCase):
         self.g.roll(0)
 
     def test_gutter_game(self):
-        for i in range(20):
+        for _ in range(20):
             self.g.roll(0)
-        self.assertEqual(0, self.g.score())
+        self.assertEqual(self.g.score(), 0)
 
 
 if __name__ == '__main__':

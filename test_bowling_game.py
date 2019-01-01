@@ -19,6 +19,13 @@ class TestGame(unittest.TestCase):
         self.roll_many(20, 1)
         self.assertEqual(self.g.score(), 20)
 
+    def test_one_spare(self):
+        self.g.roll(5)
+        self.g.roll(5)  # spare
+        self.g.roll(3)
+        self.roll_many(17, 0)
+        self.assertEqual(self.g.score(), 16)
+
 
 if __name__ == '__main__':
     unittest.main()

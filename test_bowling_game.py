@@ -29,6 +29,13 @@ class TestGame(unittest.TestCase):
         self.roll_many(17, 0)
         self.assertEqual(self.g.score(), 16)
 
+    def test_one_strike(self):
+        self.g.roll(10)  # strike
+        self.g.roll(3)
+        self.g.roll(4)
+        self.roll_many(16, 0)
+        self.assertEqual(self.g.score(), 24)
+
 
 if __name__ == '__main__':
     unittest.main()

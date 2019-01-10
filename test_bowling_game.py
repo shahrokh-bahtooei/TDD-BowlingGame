@@ -72,9 +72,24 @@ class TestGame(unittest.TestCase):
         with self.assertRaises(RolledAfter10thFrame):
             self.g.roll(8)
 
-    @unittest.skip
-    def test_calling_score_before_12_strikes_raises_error(self):
+    def test_getting_score_with_11_strikes_raises_error(self):
         self.roll_many(11, 10)
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+            self.g.score()
+
+    def test_getting_score_with_10_spares_and_missed_bonus_raises_error(self):
+        for _ in range(10):
+            self.roll_spare()
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+            self.g.score()
+
+    def test_getting_score_with_19_ones_raises_error(self):
+        self.roll_many(19, 1)
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+            self.g.score()
+
+    def test_getting_score_with_4_ones_raises_error(self):
+        self.roll_many(4, 1)
         with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
             self.g.score()
 

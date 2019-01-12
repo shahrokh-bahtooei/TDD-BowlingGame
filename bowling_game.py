@@ -9,14 +9,14 @@ class Game(object):
         self._rolls.append(pins)
 
     def score(self) -> int:
-        score = 0
+        frame_score = 0
         first_in_frame = 0
 
         for frame in range(10):
-            score += self._try_computing_frame_score(first_in_frame)
+            frame_score += self._try_computing_frame_rolls_score(first_in_frame)
             first_in_frame += self._get_steps_count_to_next_frame(first_in_frame)
 
-        return score
+        return frame_score
 
     def _raise_error_if_invalid_roll(self, pins):
         self._raise_error_if_out_of_scope_roll(pins)
@@ -82,23 +82,23 @@ class Game(object):
     def _is_spare(self, first_in_frame):
         return self._rolls[first_in_frame] + self._rolls[first_in_frame + 1] == 10
 
-    def _try_computing_frame_score(self, first_in_frame):
+    def _try_computing_frame_rolls_score(self, first_in_frame):
         try:
-            return self._compute_frame_score(first_in_frame)
+            return self._compute_frame_rolls_score(first_in_frame)
         except IndexError:
             raise GameIsNotFinishedDueToNotEnoughRolls
 
-    def _compute_frame_score(self, first_in_frame):
+    def _compute_frame_rolls_score(self, first_in_frame):
         if self._is_strike(first_in_frame):
-            frame_score = 10 + self._next_two_balls_for_strike(first_in_frame)
+            rolls_score = 10 + self._next_two_balls_for_strike(first_in_frame)
 
         elif self._is_spare(first_in_frame):
-            frame_score = 10 + self._next_ball_for_spare(first_in_frame)
+            rolls_score = 10 + self._next_ball_for_spare(first_in_frame)
 
         else:
-            frame_score = self._two_balls_in_frame(first_in_frame)
+            rolls_score = self._two_balls_in_frame(first_in_frame)
 
-        return frame_score
+        return rolls_score
 
     def _next_two_balls_for_strike(self, first_in_frame):
         return self._rolls[first_in_frame + 1] + self._rolls[first_in_frame + 2]

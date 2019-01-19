@@ -12,8 +12,8 @@ class Game(object):
         frame_score = 0
         first_in_frame = 0
 
-        for frame in range(10):
-            frame_score += self._try_computing_frame_rolls_score(first_in_frame)
+        for frame in range(1, 11):
+            frame_score += self._try_computing_frame_rolls_score(first_in_frame, frame)
             first_in_frame += self._get_steps_count_to_next_frame(first_in_frame)
 
         return frame_score
@@ -82,11 +82,12 @@ class Game(object):
     def _is_spare(self, first_in_frame):
         return self._rolls[first_in_frame] + self._rolls[first_in_frame + 1] == 10
 
-    def _try_computing_frame_rolls_score(self, first_in_frame):
+    def _try_computing_frame_rolls_score(self, first_in_frame, frame):
         try:
             return self._compute_frame_rolls_score(first_in_frame)
         except IndexError:
-            raise GameIsNotFinishedDueToNotEnoughRolls
+            msg = write_up_to_which_frame_score_is_computable(frame - 1)
+            raise GameIsNotFinishedDueToNotEnoughRolls(msg) from None
 
     def _compute_frame_rolls_score(self, first_in_frame):
         if self._is_strike(first_in_frame):
@@ -130,6 +131,9 @@ class RolledAfter10thFrame(RuntimeError):
     pass
 
 
+def write_up_to_which_frame_score_is_computable(frame):
+    return f'Score is computable just up to frame {frame}!'
+
+
 class GameIsNotFinishedDueToNotEnoughRolls(RuntimeError):
     pass
-

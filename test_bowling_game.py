@@ -1,5 +1,5 @@
 import unittest
-from bowling_game import Game, \
+from bowling_game import Game, write_up_to_which_frame_score_is_computable, \
     OutOfScopeRoll, MoreThan10PinsRolledInAFrame, RolledAfter10thFrame, GameIsNotFinishedDueToNotEnoughRolls
 
 
@@ -72,26 +72,39 @@ class TestGame(unittest.TestCase):
         with self.assertRaises(RolledAfter10thFrame):
             self.g.roll(8)
 
+    def test_error_msg_for_incomplete_game_is_typed_correctly(self):
+        actual = write_up_to_which_frame_score_is_computable(0)
+        expected = 'Score is computable just up to frame 0!'
+        self.assertEqual(actual, expected)
+
     def test_getting_score_with_11_strikes_raises_error(self):
         self.roll_many(11, 10)
-        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls) as cm:
             self.g.score()
+        self.assertEqual(str(cm.exception),
+                         write_up_to_which_frame_score_is_computable(9))
 
     def test_getting_score_with_10_spares_and_missed_bonus_raises_error(self):
         for _ in range(10):
             self.roll_spare()
-        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls) as cm:
             self.g.score()
+        self.assertEqual(str(cm.exception),
+                         write_up_to_which_frame_score_is_computable(9))
 
     def test_getting_score_with_19_ones_raises_error(self):
         self.roll_many(19, 1)
-        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls) as cm:
             self.g.score()
+        self.assertEqual(str(cm.exception),
+                         write_up_to_which_frame_score_is_computable(9))
 
     def test_getting_score_with_4_ones_raises_error(self):
         self.roll_many(4, 1)
-        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls):
+        with self.assertRaises(GameIsNotFinishedDueToNotEnoughRolls) as cm:
             self.g.score()
+        self.assertEqual(str(cm.exception),
+                         write_up_to_which_frame_score_is_computable(2))
 
 
 if __name__ == '__main__':

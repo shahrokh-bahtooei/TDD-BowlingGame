@@ -73,9 +73,10 @@ class TestGame(unittest.TestCase):
             self.g.roll(8)
 
     def test_error_msg_for_incomplete_game_is_typed_correctly(self):
-        actual = write_up_to_which_frame_score_is_computable(0)
-        expected = 'Score is computable just up to frame 0!'
-        self.assertEqual(actual, expected)
+        for frame in [0, 9]:
+            actual = write_up_to_which_frame_score_is_computable(frame)
+            expected = f'Score is computable just up to frame {frame}!'
+            self.assertEqual(actual, expected)
 
     def test_getting_score_with_11_strikes_raises_error(self):
         self.roll_many(11, 10)

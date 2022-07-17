@@ -28,15 +28,11 @@ The challenge is to develop a class to compute the final score gained in a bowli
 
 ## Solution
 To develop test-driven is to round in a simple cycle:  
-1. ![RED][red] &nbsp;&nbsp;&nbsp; Test &nbsp;&nbsp; ![RED][red]  
+1. [![Generic badge](https://img.shields.io/badge/⎍-Test-red.svg)](https://shields.io/)  
    To write a test that implies one of the program logics. This should start with the simplest logic and proceed toward slightly more complicated ones at next rounds. Because there is no production code for the feature at the time, it should **fail**.  
-2. ![GREEN][green] &nbsp;&nbsp; Code &nbsp; ![GREEN][green]  
+2. [![Generic badge](https://img.shields.io/badge/⎍-Code-brightgreen.svg)](https://shields.io/)  
    To write the minimum amount of production code just to **pass** the failing unit test, but not further.     
-3. ![BLUE][blue] Refactor ![BLUE][blue]  
-   To restructure both test code and production code into clean ones.
-   
-[red]: https://placehold.it/15/f03c15/000000?text=+ 
-[green]: https://placehold.it/15/49E20E/000000?text=+
-[blue]: https://placehold.it/15/1589F0/000000?text=+
+3. [![Generic badge](https://img.shields.io/badge/⎍-Refactor-blue.svg)](https://shields.io/)  
+   To restructure both test code and production code into clean ones.  
 
 The solution is on the two files *test_bowling_game.py* and *bowling_game.py*, where the former contains the test code and the latter has the production code. To see the development, please navigate to the **commits** section, where each commit up to *7-1*  reveals one step in the TDD cycle. To walk through the whole procedure, please start with opening *Initial Commit* on a new tab and proceed to the next ones.
